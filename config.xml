@@ -4,7 +4,7 @@
         id          = "com.phonegap.yooquiero"
         version     = "1.0.0" >
 
-    <name>Sismicapp</name>
+    <name>GetPlan</name>
 
     <description>
         Esta te permite crear y armar planes con tus amigos. 
