@@ -1,0 +1,356 @@
+html,body{
+   font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+	padding:0px;
+	margin:0px;
+	height: 100%;
+	color: #424242;
+}
+
+.navbar{
+	background: #0091ea;
+	color: white;
+	height: 60px;
+	position: fixed;
+	width: 100%;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+	top:0px;
+	right: 0px;
+}
+
+.logo{
+	float: left;
+	height: 32px;
+	padding: 10px;
+	margin: 10px;
+	font-size: 16px;
+}
+
+.icono-lapiz{
+	width: 32px;
+	height: 32px;
+	position: fixed;
+	bottom: 12px;
+	right: 12px;
+	padding: 8px;
+	background-color: #0091ea;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	box-shadow: 0 1px 6px #0091ea;
+}
+
+.icono-lapiz img{
+	width: 24px;
+	height: 24px;
+	padding: 4px;
+}
+
+.contenedor{
+	padding: 5px;
+	margin-top: 60px;
+}
+
+.loadBar{
+	margin-top: 30%;
+}
+
+.icono{
+	float: right;
+	width: 32px;
+	height: 32px;
+	padding: 10px;
+	margin: 5px;
+}
+
+small{
+	font-size: 10px;
+}
+
+.centrar{
+	text-align: center;
+}
+
+.enlinea{
+	display: inline-block;
+}
+
+#btnFB{
+	margin-top:20px;
+	width: 70%;
+}
+
+hr{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 0;
+	border-top: 1px solid #eee;
+	width: 100%;
+}
+
+.logo-splash{
+	margin-top: 20%;
+	width: 70%;
+}
+
+.fondo-azul{
+	background-color: #0091ea;
+	color: white;
+}
+
+.contenido-80{
+	height: 80%;
+	width: 100%;
+}
+
+.contenido-20{
+	height: 20%;
+	width: 100%;
+}
+
+.left{
+	float: left;
+}
+
+.right{
+	float: right;
+}
+
+.vcentrar{
+	vertical-align: super;
+}
+
+.justificar{
+	text-align: justify;
+}
+
+/**
+* Personas
+**/
+.persona{
+
+}
+
+.hr-persona{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border: 0;
+	border-top: 1px solid #eee;
+	width: 100%;
+}
+
+.img-persona{
+	width: 48px;
+	height: 48px;
+	-moz-border-radius:50%;
+	-webkit-border-radius:50%;
+	-ms-border-radius:50%;
+	-o-border-radius:50%;
+	border-radius:50%;
+	margin: 5px;
+	margin-right: 12px;
+}
+
+.nombre-resaltado{
+	padding-top: 18px;
+	color: #212121;
+	font-size: 16px;
+}
+
+/**
+* Fin personas
+**/
+
+/**
+* Post
+**/
+.img-post{
+	width: 48px;
+	height: 48px;
+	-moz-border-radius:50%;
+	-webkit-border-radius:50%;
+	-ms-border-radius:50%;
+	-o-border-radius:50%;
+	border-radius:50%;
+	margin: 5px;
+}
+
+.titulo-post{
+	padding-top: 5px;
+	color: #212121;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.post-borrar{
+	float: right;
+	width: 20px;
+	height: 20px;
+}
+
+.subtitulo-post{
+	font-size: 12px;
+	margin-bottom: 12px;
+}
+
+.contenido-post{
+	margin-top: 5px;
+	font-size: 15px;
+	padding-left: 58px;
+}
+
+.post-footer{
+	color: #9E9E9E;
+	margin-top: 10px;
+	font-size: 13px;
+	padding-left: 58px;
+	height: 30px;
+}
+
+.YooQuiero{
+	padding: 2px 4px;
+}
+
+.YooQuiero span{
+	vertical-align: sub;
+	vertical-align: -webkit-baseline-middle;
+	vertical-align: -ms-baseline-middle;
+	vertical-align: -moz-baseline-middle;
+	vertical-align: -0-baseline-middle;
+	padding-left: 5px;
+}
+
+.YooQuiero img{
+	background-image: url("../img/yoquiero.png");
+	background-repeat: no-repeat;
+	width: 24px;
+	height: 24px;
+}
+
+.yqcount{
+	border: 1px solid #9E9E9E;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	-ms-border-radius:2px;
+	-o-border-radius:2px;
+	border-radius:2px;
+	padding: 1px 4px;
+	margin-left: 15px;
+	margin-top: 5px;
+}
+
+.fecha-post{
+	margin-top: 5px;
+}
+
+.activo{
+	color: white;
+	background-color: #129eb2;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	-ms-border-radius:2px;
+	-o-border-radius:2px;
+	border-radius:2px;
+}
+
+.activo img{
+	background-image: url("../img/yoquiero_blanco.png");
+	background-repeat: no-repeat;
+}
+
+/**
+* Fin Post
+**/
+#loadingProgressG{
+	width:256px;
+	height:20px;
+	overflow:hidden;
+	background-color:#0D47A1;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	-ms-border-radius:10px;
+	-o-border-radius:10px;
+	border-radius:10px;
+}
+
+.loadingProgressG{
+	background-color:#0091ea;
+	margin-top:0;
+	margin-left:-256px;
+	-moz-animation-name:bounce_loadingProgressG;
+	-moz-animation-duration:1.8s;
+	-moz-animation-iteration-count:infinite;
+	-moz-animation-timing-function:linear;
+	-webkit-animation-name:bounce_loadingProgressG;
+	-webkit-animation-duration:1.8s;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-timing-function:linear;
+	-ms-animation-name:bounce_loadingProgressG;
+	-ms-animation-duration:1.8s;
+	-ms-animation-iteration-count:infinite;
+	-ms-animation-timing-function:linear;
+	-o-animation-name:bounce_loadingProgressG;
+	-o-animation-duration:1.8s;
+	-o-animation-iteration-count:infinite;
+	-o-animation-timing-function:linear;
+	animation-name:bounce_loadingProgressG;
+	animation-duration:1.8s;
+	animation-iteration-count:infinite;
+	animation-timing-function:linear;
+	width:256px;
+	height:20px;
+}
+
+@-moz-keyframes bounce_loadingProgressG{
+0%{
+	margin-left:-256px;
+}
+
+100%{
+	margin-left:256px;
+}
+
+}
+
+@-webkit-keyframes bounce_loadingProgressG{
+0%{
+	margin-left:-256px;
+}
+
+100%{
+	margin-left:256px;
+}
+
+}
+
+@-ms-keyframes bounce_loadingProgressG{
+0%{
+	margin-left:-256px;
+}
+
+100%{
+	margin-left:256px;
+}
+
+}
+
+@-o-keyframes bounce_loadingProgressG{
+0%{
+	margin-left:-256px;
+}
+
+100%{
+	margin-left:256px;
+}
+
+}
+
+@keyframes bounce_loadingProgressG{
+0%{
+	margin-left:-256px;
+}
+
+100%{
+	margin-left:256px;
+}
+
+}

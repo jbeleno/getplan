@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>YooQuiero</title>
+		<link href="assets/css/estilos.css" rel="stylesheet">
+		<meta name="viewport" id="viewport"
+	    content="width=device-width, height=device-height,
+	    initial-scale=1.0, maximum-scale=1.0,
+	    user-scalable=no" />
+		<script src="phonegap.js"></script>
+	</head>
+	<body>
+		<div class="navbar">
+			<span class="logo">YooQuiero</span>
+			<img src ="assets/img/campana_bordes.png" class="icono" id="info">
+			<img src ="assets/img/perfil_blanco.png" class="icono" id="perfil">
+		</div>
+		<div class="contenedor">
+			<div class="persona">
+				<img src="assets/img/sasha.jpg" class="img-persona left">
+				<div class="nombre-resaltado">Sasha Gray</div>
+			</div>
+			<hr class="hr-persona">
+			<div class="persona">
+				<img src="assets/img/sasha.jpg" class="img-persona left">
+				<div class="nombre-resaltado">Sasha Gray</div>
+			</div>
+			<hr class="hr-persona">
+			<div class="persona">
+				<img src="assets/img/sasha.jpg" class="img-persona left">
+				<div class="nombre-resaltado">Sasha Gray</div>
+			</div>
+			<hr class="hr-persona">
+			<!--<div class="centrar">
+				<div class="loadBar">
+					<div id="loadingProgressG" style="display:inline-flex;">
+						<div id="loadingProgressG_1" class="loadingProgressG">
+						</div>
+					</div>
+				</div>			
+			</div>-->
+		</div>
+		<script src="assets/js/jquery.js"></script>
+		<script  type="text/javascript" language="javascript">
+			var base_url = "http://52.27.16.14/sismicapp/";
+			var ProjectKey = "581783556753";
+			var pushNotification;
+			var latitud, longitud;
+
+			function ajax(url,data,done,error){
+	            $.ajax({
+	                url: url,
+	                context : document.body,
+	                dataType: "json",
+	                type: "POST",
+	                data: data
+	            }).done(done).error(error);
+	        }
+
+	        function registrar_usuario(){
+	        	ajax(
+		        	base_url+'usuarios/nuevo',
+		        	{
+		        		'gcm_id' : localStorage.regid,
+		        		'latitud' : latitud,
+		        		'longitud' : longitud,
+		        		'modelo': device.model,
+		        		'plataforma' : device.platform,
+		        		'uuid' : device.uuid,
+		        		'version' : device.version
+		        	},
+		        	function(data){
+		        		if(data.STATUS == 'OK'){
+		        			localStorage.usuario = data.ID;
+		        			//alert(localStorage.usuario);
+		        		}
+		        	},
+		        	function(error){
+
+		        	}
+	        	);
+	        }
+
+	        function actualizar_ubicacion(){
+	        	ajax(
+		        	base_url+'usuarios/actualizar',
+		        	{
+		        		'id' : localStorage.usuario,
+		        		'latitud' : latitud,
+		        		'longitud' : longitud
+		        	},
+		        	function(data){
+
+		        	},
+		        	function(error){
+
+		        	}
+	        	);
+	        }
+
+	        function informacion(){
+	        	navigator.notification.alert(
+							    'La información que está en los circulos rojos es la magnitud del sismo en la escala de Richter para sismos iguales o inferiores a 3.0 (Ml), para sismos de mayor magnitud se usa la escala sismológica de magnitud de momento (Mw).',  // message
+							    null,
+							    'Información',            // title
+							    'OK'                  // buttonName
+							);
+	        }
+
+			function registrar(){
+				//alert('registra');
+				if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
+				    //alert('registra2');
+				    pushNotification.register(
+				    successHandler,
+				    errorHandler,
+				    {
+				        "senderID": ProjectKey,
+				        "ecb":"onNotification"
+				    });
+				}
+			}
+
+			// result contains any message sent from the plugin call
+			function successHandler (result) {
+			    //alert('result = ' + result);
+			}
+
+			// result contains any error description text returned from the plugin call
+			function errorHandler (error) {
+			    
+			}
+
+			// Android and Amazon Fire OS
+			function onNotification(e) {
+			    switch( e.event )
+			    {
+				    case 'registered':
+				        if ( e.regid.length > 0 )
+				        {
+				        	localStorage.regid = e.regid;
+				        	registrar_usuario();
+				        	//alert(e.regid);
+				        }
+				        //alert('sin regid');
+				    break;
+				    case 'error':
+				    	//En la versión de producción no se muestra nada
+				    break;
+				    default:
+				        navigator.notification.alert(
+							    '¡Wow! un error inesperado ha ocurrido, por favor intenta cargar de nuevo.',  // message
+							    null,
+							    'Error', // title
+							    'OK' // buttonName
+							);
+				    break;
+			  	}
+			}
+
+			function mostrar(identificador){
+				localStorage.sismo = identificador;
+				window.location.assign("sismo.html");
+			}
+
+			function getlocation(pos) {
+				latitud = pos.coords.latitude;
+				longitud = pos.coords.longitude;
+				if(localStorage.regid) actualizar_ubicacion();
+				else registrar();
+			}
+			
+			
+			function failgeo(error) {
+				latitud = 4;
+				longitud = -70;
+				alert(error);
+				if(localStorage.regid) actualizar_ubicacion();
+				else registrar();
+			}
+
+			document.addEventListener("deviceready", onDeviceReady, false);
+
+			function onDeviceReady() {
+				/*navigator.geolocation.getCurrentPosition(getlocation, failgeo,{timeout:2000}); 
+
+				$( "#info" ).on( "click", informacion);
+	        	$( ".logo" ).on( "click", function(){window.location.assign("index.html");});
+	        	$( "#settings" ).on( "click", function(){window.location.assign("configurar.html");});
+	        	ajax(
+        			base_url+'sismos/ver',
+        			null,
+        			function(data){
+        				pushNotification = window.plugins.pushNotification;
+        				if(data.STATUS == 'OK'){
+        					var contenido = '';
+        					for(var i = 0; i < data.DATOS.length; i++){
+        						contenido += '<div onclick="mostrar('+data.DATOS[i].id+')">';
+        						contenido += '<div class="col-2 enlinea">';
+        						if(parseFloat(data.DATOS[i].magnitud) > 0)
+        							contenido += '<div class="magnitud centrar">'+data.DATOS[i].magnitud+'</div>';
+        						else
+        							contenido += '<div class="magnitud centrar">'+data.DATOS[i].magnitud_richter+'</div>';
+        						contenido += '</div>';
+        						contenido += '<div class="col-8 enlinea">';
+        						contenido += '<div class="titulo">'+data.DATOS[i].epicentro+'</div>';
+        						contenido += '<div class="subtitulo">'+data.DATOS[i].fecha+'</div>';
+        						contenido += '<hr>';
+        						contenido += '</div>';
+        						contenido += '</div>';
+        					}
+        					$('.contenedor').html(contenido);
+        				}
+        			},
+        			function(){
+        				var contenido = '<div class="centrar"><br><br>';
+        				contenido += '<h3>¡Ups!, Houston tenemos un problema, al parecer tu conexión a internet está fallando.</h3><br>';
+        				contenido += '<a href="index.html" class="btn btn-danger">RECARGAR</a>';
+        				contenido += '</div>';
+        				$('.contenedor').html(contenido);
+        			}
+        		);*/
+			}
+		</script>
+	</body>
+</html>

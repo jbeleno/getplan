@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns   = "http://www.w3.org/ns/widgets"
+        xmlns:gap   = "http://phonegap.com/ns/1.0"
+        id          = "com.phonegap.yooquiero"
+        version     = "1.0.0" >
+
+    <name>Sismicapp</name>
+
+    <description>
+        Esta te permite crear y armar planes con tus amigos. 
+    </description>
+
+    <author href="https://build.phonegap.com" email="jsbeleno@gmail.com">
+        Equipo YoQuiero
+    </author>
+	
+    <access origin="*" />
+
+	<icon src="img/logo.png" />
+	
+	<preference name="permissions" value="none" />
+	
+	<preference name="Orientation" value="portrait" />
+	
+	<gap:plugin name="org.apache.cordova.device" />
+    <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.4" />
+    <gap:plugin name="org.apache.cordova.dialogs"/>
+    <gap:plugin name="org.apache.cordova.inappbrowser"/>
+</widget>
