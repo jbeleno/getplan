@@ -12,7 +12,7 @@
 	</head>
 	<body>
 		<div class="centrar contenido-80">
-			<img src="assets/img/logo.png" class="logo-splash">
+			<img src="assets/img/logo.png" class="logo-splash" id="btnLogin">
 		</div>
 		<div class="centrar contenido-20 fondo-azul">
 			<img src="assets/img/btnFB.png" id="btnFB"><br>
@@ -21,7 +21,18 @@
 		<script src="assets/js/jquery.js"></script>
 		<script src="assets/js/openfb.js"></script>
 		<script  type="text/javascript" language="javascript">
+			function ajax(url,data,done,error){
+	            $.ajax({
+	                url: url,
+	                context : document.body,
+	                dataType: "json",
+	                type: "POST",
+	                data: data
+	            }).done(done).error(error);
+	        }
+
 			openFB.init({appId: '963337857046301'});
+			
 			function login() {
 		        openFB.login(
 	                function(response) {
@@ -48,6 +59,12 @@
             function guardarInfo(){
 
             }
+
+            document.addEventListener("deviceready", onDeviceReady, false);
+
+			function onDeviceReady() {
+				$("#btnLogin").click(login);
+			}
 		</script>
 	</body>
 </html>
