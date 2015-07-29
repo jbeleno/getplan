@@ -20,10 +20,18 @@
 	
 	<preference name="permissions" value="none" />
 	
-	<preference name="Orientation" value="portrait" />
+	<preference name="orientation" value="portrait" />
+
+    <gap:config-file platform="android" parent="/manifest/application" >
+       <activity android:screenOrientation="portrait" android:configChanges="orientation" />
+    </gap:config-file>
 	
 	<gap:plugin name="org.apache.cordova.device" />
     <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.4" />
     <gap:plugin name="org.apache.cordova.dialogs"/>
     <gap:plugin name="org.apache.cordova.inappbrowser"/>
+    <gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.8.0">
+        <param name="APP_ID" value="963337857046301" />
+        <param name="APP_NAME" value="YooQuiero" />
+    </gap:plugin>
 </widget>

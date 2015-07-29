@@ -31,30 +31,18 @@
 	            }).done(done).error(error);
 	        }
 
-			openFB.init({appId: '963337857046301'});
-			
-			function login() {
-		        openFB.login(
-	                function(response) {
-	                    if(response.status === 'connected') {
-                            getInfo();
-	                        //alert('Facebook login succeeded, got access token: ' + response.authResponse.accessToken);
-	                    } else {
-	                        alert('¡Ups! al parecer hay problemas intentando iniciar sesión con facebook, intenta de nuevo en un rato :)');
-	                    }
-	                }, {scope: 'public_profile, email,user_friends'});
-			}
+			facebookConnectPlugin.browserInit("963337857046301");
 
-            function getInfo() {
-                openFB.api({
-                    path: '/me',
-                    success: function(data) {
-                        console.log(JSON.stringify(data));
-                        document.getElementById("userName").innerHTML = data.name;
-                        document.getElementById("userPic").src = 'http://graph.facebook.com/' + data.id + '/picture?type=large';
-                    },
-                    error: errorHandler});
-            }
+			function login(){
+				facebookConnectPlugin.login(
+					['public_profile', 'email','user_friends'], 
+					function(data){
+						$(".contenido-80").text(data);
+					},function(error){
+						$(".contenido-80").text(error);
+					}
+				);
+			}
 
             function guardarInfo(){
 
