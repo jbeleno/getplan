@@ -33,16 +33,19 @@
 
 			facebookConnectPlugin.browserInit("963337857046301");
 
-			function login(){
+			var fbLoginSuccess = function (userData) {
+			    alert("UserInfo: " + JSON.stringify(userData));
+			}
+
+			var login = function(){
+				alert("Al menos entra");
 				facebookConnectPlugin.login(
-					['public_profile', 'email','user_friends'], 
-					function(data){
-						$(".contenido-80").text(data);
-					},function(error){
-						$(".contenido-80").text(error);
-					}
+					["public_profile", "email", "user_friends"],
+				    fbLoginSuccess,
+				    function (error) { alert("" + error) }
 				);
 			}
+			
 
             function guardarInfo(){
 
@@ -51,7 +54,7 @@
             document.addEventListener("deviceready", onDeviceReady, false);
 
 			function onDeviceReady() {
-				$("#btnLogin").click(login);
+				$("#btnFB").click(login);
 			}
 		</script>
 	</body>
