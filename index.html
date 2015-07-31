@@ -21,6 +21,7 @@
 		<script src="assets/js/jquery.js"></script>
 		<script src="assets/js/openfb.js"></script>
 		<script  type="text/javascript" language="javascript">
+
 			function ajax(url,data,done,error){
 	            $.ajax({
 	                url: url,
@@ -31,20 +32,27 @@
 	            }).done(done).error(error);
 	        }
 
-			facebookConnectPlugin.browserInit("963337857046301");
-
-			var fbLoginSuccess = function (userData) {
-			    alert("UserInfo: " + JSON.stringify(userData));
-			}
+	        openFB.init({appId: '963337857046301'});
 
 			var login = function(){
-				alert("Al menos entra");
-				facebookConnectPlugin.login(
-					["public_profile", "email", "user_friends"],
-				    fbLoginSuccess,
-				    function (error) { alert("" + error) }
-				);
+				openFB.login(
+                function(response) {
+                    if(response.status === 'connected') {
+                        getInfo();
+                    } else {
+                        alert('Facebook login failed: ' + response.error);
+                    }
+                }, {scope: 'email,user_friends,public_profile'});
 			}
+
+			function getInfo() {
+		        openFB.api({
+		            path: '/me',
+		            success: function(data) {
+		                console.log(JSON.stringify(data));
+		            },
+		            error: errorHandler});
+		    }
 			
 
             function guardarInfo(){
