@@ -40,9 +40,9 @@
 	        function actualizar_sesion(){
 	        	ajax(
 		        	'usuarios/actualizar',
-		        	null,
-		        	function(data){},
-		        	function(error){}
+		        	{'uuid' : device.uuid},
+		        	function(data){window.location.assign("feed.html");},
+		        	function(error){window.location.assign("feed.html");}
 	        	);
 	        }
 
@@ -50,7 +50,7 @@
 		    	openFB.api({
 		            path: '/me/friends',
 		            success: function(data) {
-		                console.log(JSON.stringify(data));
+		                registrar_amigos(JSON.stringify(data.data));
 		            },
 		            error: errorHandler
 		        });
@@ -60,12 +60,10 @@
 		        openFB.api({
 		            path: '/me',
 		            success: function(data) {
-		                //console.log(JSON.stringify(data));
 		                localStorage.idfb = data.id;
 		                localStorage.nombre = data.name;
 		                localStorage.foto = 'http://graph.facebook.com/' + data.id + '/picture?type=large';
-		                if(localStorage.regid) actualizar_sesion();
-						else registrar();
+		                registrar();
 		            },
 		            error: errorHandler
 		        });
@@ -134,6 +132,24 @@
 		        console.log(error.message);
 		    }
 
+		    function registrar_amigos(amigos){
+		    	ajax(
+		        	'amigos/nuevos',
+		        	{
+		        		'usuario': localStorage.idfb,
+		        		'amigos' : amigos
+		        	},
+		        	function(data){
+		        		if(data.Status == 'OK'){
+		        			window.location.assign("feed.html");
+		        		}
+		        	},
+		        	function(error){
+
+		        	}
+	        	);
+		    }
+
 			function registrar_usuario(){
 	        	ajax(
 		        	'usuarios/nuevo',
@@ -148,8 +164,8 @@
 		        		'version' : device.version
 		        	},
 		        	function(data){
-		        		if(data.STATUS == 'OK'){
-		        			localStorage.usuario = data.ID;
+		        		if(data.Status == 'OK'){
+		        			getFriends();
 		        		}
 		        	},
 		        	function(error){
@@ -163,6 +179,7 @@
 			function onDeviceReady() {
 				pushNotification = window.plugins.pushNotification;
 				$("#btnFB").click(login);
+				if(localStorage.regid) actualizar_sesion();
 			}
 		</script>
 	</body>
