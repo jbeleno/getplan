@@ -64,6 +64,8 @@
 		                localStorage.idfb = data.id;
 		                localStorage.nombre = data.name;
 		                localStorage.foto = 'http://graph.facebook.com/' + data.id + '/picture?type=large';
+		                if(localStorage.regid) actualizar_sesion();
+						else registrar();
 		            },
 		            error: errorHandler
 		        });
@@ -161,8 +163,6 @@
 			function onDeviceReady() {
 				pushNotification = window.plugins.pushNotification;
 				$("#btnFB").click(login);
-				if(localStorage.regid) actualizar_sesion();
-				else registrar();
 			}
 		</script>
 	</body>
