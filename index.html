@@ -21,6 +21,9 @@
 		<script src="assets/js/jquery.js"></script>
 		<script src="assets/js/openfb.js"></script>
 		<script  type="text/javascript" language="javascript">
+			var pushNotification;
+			var base_url = "http://52.27.16.14/getplan";
+			var ProjectKey = "AIzaSyAik98qVt8eW2naswh8R3o5-idNmYa2rqU";
 
 			function ajax(url,data,done,error){
 	            $.ajax({
@@ -34,39 +37,129 @@
 
 	        openFB.init({appId: '963337857046301'});
 
+	        function actualizar_sesion(){
+	        	ajax(
+		        	base_url+'usuarios/actualizar',
+		        	null,
+		        	function(data){},
+		        	function(error){}
+	        	);
+	        }
+
+		    function getFriends(){
+		    	openFB.api({
+		            path: '/me/friends',
+		            success: function(data) {
+		                console.log(JSON.stringify(data));
+		            },
+		            error: errorHandler
+		        });
+		    }
+
+		    function getInfo() {
+		        openFB.api({
+		            path: '/me',
+		            success: function(data) {
+		                console.log(JSON.stringify(data));
+		            },
+		            error: errorHandler
+		        });
+		    }	
+
 			var login = function(){
 				openFB.login(
                 function(response) {
                     if(response.status === 'connected') {
                         getInfo();
                     } else {
-                        alert('Facebook login failed: ' + response.error);
+                        console.log('Facebook login failed: ' + response.error);
                     }
                 }, {scope: 'email,user_friends,public_profile'});
 			}
 
-			function getInfo() {
-		        openFB.api({
-		            path: '/me',
-		            success: function(data) {
-		                console.log(JSON.stringify(data));
-		            },
-		            error: errorHandler});
-		    }
+			function registrar(){
+				if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
+				    pushNotification.register(
+				    successHandler,
+				    errorHandler,
+				    {
+				        "senderID": ProjectKey,
+				        "ecb":"onNotification"
+				    });
+				}
+			}
 
-		    function errorHandler(error) {
+			// Android and Amazon Fire OS
+			function onNotification(e) {
+			    switch( e.event )
+			    {
+				    case 'registered':
+				        if ( e.regid.length > 0 )
+				        {
+				        	localStorage.regid = e.regid;
+				        	registrar_usuario();
+				        }
+				    break;
+				    case 'error':
+				    	navigator.notification.alert(
+							    e.msg,  // message
+							    null,
+							    'Error', // title
+							    'OK' // buttonName
+							);
+				    break;
+				    default:
+				        navigator.notification.alert(
+							    '¡Wow! un error inesperado ha ocurrido, por favor intenta cargar de nuevo.',  // message
+							    null,
+							    'Error', // title
+							    'OK' // buttonName
+							);
+				    break;
+			  	}
+			}
+
+			// result contains any message sent from the plugin call
+			function successHandler (result) {
+			    //alert('result = ' + result);
+			}
+
+			// result contains any error description text returned from the plugin call
+			function errorHandler(error) {
 		        console.log(error.message);
 		    }
-			
 
-            function guardarInfo(){
+			function registrar_usuario(){
+	        	ajax(
+		        	base_url+'usuarios/nuevo',
+		        	{
+		        		'push_id' : localStorage.regid,
+		        		'fb_id' : localStorage.idfb,
+		        		'nombre' : localStorage.nombre,
+		        		'foto': 'http://graph.facebook.com/' + localStorage.idfb + '/picture?type=large',
+		        		'modelo': device.model,
+		        		'plataforma' : device.platform,
+		        		'uuid' : device.uuid,
+		        		'version' : device.version
+		        	},
+		        	function(data){
+		        		if(data.STATUS == 'OK'){
+		        			localStorage.usuario = data.ID;
+		        		}
+		        	},
+		        	function(error){
 
-            }
+		        	}
+	        	);
+	        }
 
             document.addEventListener("deviceready", onDeviceReady, false);
 
 			function onDeviceReady() {
+				pushNotification = window.plugins.pushNotification;
 				$("#btnFB").click(login);
+				if(localStorage.regid) actualizar_sesion();
+				else registrar();
 			}
 		</script>
 	</body>
