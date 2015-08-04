@@ -60,7 +60,10 @@
 		        openFB.api({
 		            path: '/me',
 		            success: function(data) {
-		                console.log(JSON.stringify(data));
+		                //console.log(JSON.stringify(data));
+		                localStorage.idfb = data.id;
+		                localStorage.nombre = data.name;
+		                localStorage.foto = 'http://graph.facebook.com/' + data.id + '/picture?type=large';
 		            },
 		            error: errorHandler
 		        });
@@ -136,7 +139,7 @@
 		        		'push_id' : localStorage.regid,
 		        		'fb_id' : localStorage.idfb,
 		        		'nombre' : localStorage.nombre,
-		        		'foto': 'http://graph.facebook.com/' + localStorage.idfb + '/picture?type=large',
+		        		'foto': localStorage.foto,
 		        		'modelo': device.model,
 		        		'plataforma' : device.platform,
 		        		'uuid' : device.uuid,
