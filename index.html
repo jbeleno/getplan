@@ -22,12 +22,12 @@
 		<script src="assets/js/openfb.js"></script>
 		<script  type="text/javascript" language="javascript">
 			var pushNotification;
-			var base_url = "http://52.27.16.14/getplan";
+			var base_url = "http://52.27.16.14/getplan/";
 			var ProjectKey = "AIzaSyAik98qVt8eW2naswh8R3o5-idNmYa2rqU";
 
 			function ajax(url,data,done,error){
 	            $.ajax({
-	                url: url,
+	                url: base_url+url,
 	                context : document.body,
 	                dataType: "json",
 	                type: "POST",
@@ -39,7 +39,7 @@
 
 	        function actualizar_sesion(){
 	        	ajax(
-		        	base_url+'usuarios/actualizar',
+		        	'usuarios/actualizar',
 		        	null,
 		        	function(data){},
 		        	function(error){}
@@ -131,7 +131,7 @@
 
 			function registrar_usuario(){
 	        	ajax(
-		        	base_url+'usuarios/nuevo',
+		        	'usuarios/nuevo',
 		        	{
 		        		'push_id' : localStorage.regid,
 		        		'fb_id' : localStorage.idfb,
