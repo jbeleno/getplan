@@ -13,7 +13,7 @@
 	<body>
 		<div class="navbar">
 			<span class="logo">YooQuiero</span>
-			<img src ="assets/img/campana_bordes.png" class="icono" id="info">
+			<img src ="assets/img/campana_bordes.png" class="icono" id="notificaciones">
 			<img src ="assets/img/perfil_blanco.png" class="icono" id="perfil">
 		</div>
 		<div class="contenedor">
@@ -77,7 +77,7 @@
 				$("#perfil").click(function(){window.location.assign("publicaciones.html");});
 				$("#notificaciones").click(function(){window.location.assign("publicaciones.html");});
 
-				$( "#btn-publicar" ).on( "click", publicar("#btn-publicar"));
+				$("#btn-publicar").click(publicar("#btn-publicar"));
 	        }
 		</script>
 	</body>
