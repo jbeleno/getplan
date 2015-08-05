@@ -41,7 +41,7 @@
 	        function publicar(btn){
 	        	$(btn).attr('disabled','disabled');
         		ajax(
-        			'publicacion/nueva',
+        			'publicaciones/nueva',
         			{
         				'autor' : localStorage.idfb,
         				'mensaje': $('#publicacion').val()
@@ -77,7 +77,7 @@
 				$("#perfil").click(function(){window.location.assign("publicaciones.html");});
 				$("#notificaciones").click(function(){window.location.assign("publicaciones.html");});
 
-				$( "#btn-publicar" ).on( "click", publicar());
+				$( "#btn-publicar" ).on( "click", publicar("#btn-publicar"));
 	        }
 		</script>
 	</body>
