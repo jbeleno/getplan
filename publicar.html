@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>YooQuiero</title>
+		<link href="assets/css/estilos.css" rel="stylesheet">
+		<meta name="viewport" id="viewport"
+	    content="width=device-width, height=device-height,
+	    initial-scale=1.0, maximum-scale=1.0,
+	    user-scalable=no" />
+		<script src="phonegap.js"></script>
+	</head>
+	<body>
+		<div class="navbar">
+			<span class="logo">YooQuiero</span>
+			<img src ="assets/img/campana_bordes.png" class="icono" id="info">
+			<img src ="assets/img/perfil_blanco.png" class="icono" id="perfil">
+		</div>
+		<div class="contenedor">
+			<div class="centrar"><h3>Yo Quiero:</h3></div>
+			<textarea rows="6" placeholder="ir a rumbear cuadra picha está noche, nos encontramos en Gisell Barra Dance a las 10:00 p.m." id="publicacion"></textarea>
+			<br><br>
+			<div class="centrar">
+				<button class="btn btn-default" id="btn-publicar">PUBLICAR</button>
+			</div>
+		</div>
+		<script src="js/jquery.js"></script>
+		<script  type="text/javascript" language="javascript">
+			var base_url = "http://52.27.16.14/getplan/";
+			
+			function ajax(url,data,done,error){
+	            $.ajax({
+	                url: base_url+url,
+	                context : document.body,
+	                dataType: "json",
+	                type: "POST",
+	                data: data
+	            }).done(done).error(error);
+	        }
+
+	        function publicar(btn){
+	        	$(btn).attr('disabled','disabled');
+        		ajax(
+        			'publicacion/nueva',
+        			{
+        				'autor' : localStorage.idfb,
+        				'mensaje': $('#publicacion').val()
+        			},
+        			function(data){
+        				if(data.Status == 'OK'){
+							window.location.assign("publicaciones.html");
+        				}else{
+        					navigator.notification.alert(
+						    data.MSG,  // message
+						    null,
+						    'Error', // title
+						    'OK' // buttonName
+						);
+        				}
+        				$(btn).removeAttr('disabled');
+        			},
+        			function(){
+        				navigator.notification.alert(
+						    '¡Ups!, Houston tenemos un problema, al parecer tu conexión a internet está fallando.',  // message
+						    null,
+						    'Error', // title
+						    'OK' // buttonName
+						);
+						$(btn).removeAttr('disabled');
+        			}
+        		);
+	        }
+
+			document.addEventListener("deviceready", onDeviceReady, false);
+
+			function onDeviceReady() {
+				$("#perfil").click(function(){window.location.assign("publicaciones.html");});
+				$("#notificaciones").click(function(){window.location.assign("publicaciones.html");});
+
+				$( "#btn-publicar" ).on( "click", publicar());
+	        }
+		</script>
+	</body>
+</html>

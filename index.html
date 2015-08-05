@@ -11,7 +11,7 @@
 		<script src="phonegap.js"></script>
 	</head>
 	<body>
-		<div class="centrar contenido-80">
+		<div class="centrar contenido-80 fondo-azul">
 			<img src="assets/img/logo.png" class="logo-splash">
 		</div>
 		<div class="centrar contenido-20 fondo-azul">
@@ -36,15 +36,6 @@
 	        }
 
 	        openFB.init({appId: '963337857046301'});
-
-	        function actualizar_sesion(){
-	        	ajax(
-		        	'usuarios/actualizar',
-		        	{'uuid' : device.uuid},
-		        	function(data){window.location.assign("feed.html");},
-		        	function(error){window.location.assign("feed.html");}
-	        	);
-	        }
 
 		    function getFriends(){
 		    	openFB.api({
@@ -179,7 +170,6 @@
 			function onDeviceReady() {
 				pushNotification = window.plugins.pushNotification;
 				$("#btnFB").click(login);
-				if(localStorage.regid) actualizar_sesion();
 			}
 		</script>
 	</body>

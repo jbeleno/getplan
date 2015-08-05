@@ -260,6 +260,79 @@ hr{
 /**
 * Fin Post
 **/
+
+
+/**
+* Publicar
+**/
+textarea{
+	display: block;
+	overflow: auto;
+	width: 100%;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	box-sizing: border-box;
+}
+
+.btn {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	font-size: 0.9em;
+	width: 120px;
+}
+
+.btn-default {
+	color: #fff;
+	background-color: #0091ea;
+	border-color: #0091ea;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+	text-decoration: none;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active, .open>.dropdown-toggle.btn-default {
+	color: #fff;
+	background-color: #0091ea;
+	border-color: #0091ea;
+	box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+	text-decoration: none;
+}
+
+/**
+* Fin Publicar
+**/
+
+
+
 #loadingProgressG{
 	width:256px;
 	height:20px;
