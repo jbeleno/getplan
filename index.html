@@ -170,6 +170,7 @@
 			function onDeviceReady() {
 				pushNotification = window.plugins.pushNotification;
 				$("#btnFB").click(login);
+				if(localStorage.regid) window.location.assign("index.html");
 			}
 		</script>
 	</body>
