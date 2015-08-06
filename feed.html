@@ -65,7 +65,10 @@
 								contenido += data.Publicaciones[i].publicacion;
 								contenido += '</div>';
 								contenido += '<div class="post-footer">';
-								contenido += '<span class="YooQuiero left" onclick="yoquiero(this,'+data.Publicaciones[i].id+')">';
+								if(data.Publicaciones[i].yoquiero == "si")
+									contenido += '<span class="YooQuiero left" onclick="yoquiero(this,'+data.Publicaciones[i].id+')">';
+								else
+									contenido += '<span class="YooQuiero left activo" onclick="yoquiero(this,'+data.Publicaciones[i].id+')">';
 								contenido += '<img src="assets/img/trasparente.png" class="left" >';
 								contenido += '<span>Yo Quiero!</span>';
 								contenido += '</span>';
