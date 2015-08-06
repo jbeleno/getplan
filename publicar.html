@@ -12,7 +12,7 @@
 	</head>
 	<body>
 		<div class="navbar">
-			<span class="logo">YooQuiero</span>
+			<span class="logo" id="feed">YooQuiero</span>
 			<img src ="assets/img/campana_bordes.png" class="icono" id="notificaciones">
 			<img src ="assets/img/perfil_blanco.png" class="icono" id="perfil">
 		</div>
@@ -74,6 +74,7 @@
 			document.addEventListener("deviceready", onDeviceReady, false);
 
 			function onDeviceReady() {
+				$("#feed").click(function(){window.location.assign("feed.html");});
 				$("#perfil").click(function(){window.location.assign("publicaciones.html");});
 				$("#notificaciones").click(function(){window.location.assign("publicaciones.html");});
 
