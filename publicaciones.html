@@ -12,7 +12,7 @@
 	</head>
 	<body>
 		<div class="navbar">
-			<span class="logo">YooQuiero</span>
+			<span class="logo" id="feed">YooQuiero</span>
 			<img src ="assets/img/campana_bordes.png" class="icono" id="info">
 			<img src ="assets/img/perfil_blanco.png" class="icono" id="perfil">
 		</div>
@@ -62,16 +62,16 @@
 								contenido += '<img src="'+data.Publicaciones[i].foto+'" class="img-post left">';
 								contenido += '<div class="titulo-post">';
 								contenido += data.Publicaciones[i].autor;
-								contenido += '<img src="assets/img/borrar.png" class="post-borrar">';
+								contenido += '<img src="assets/img/borrar.png" class="post-borrar" onclick="eliminar(this,'+data.Publicaciones[i].id+')">';
 								contenido += '</div>';
 								contenido += '<div class="justificar contenido-post">';
 								contenido += data.Publicaciones[i].publicacion;
 								contenido += '</div>';
 								contenido += '<div class="post-footer">';
 								if(data.Publicaciones[i].yoquiero == "si")
-									contenido += '<span class="YooQuiero left" onclick="yoquiero(this,'+data.Publicaciones[i].id+')">';
-								else
 									contenido += '<span class="YooQuiero left activo" onclick="yoquiero(this,'+data.Publicaciones[i].id+')">';
+								else
+									contenido += '<span class="YooQuiero left" onclick="yoquiero(this,'+data.Publicaciones[i].id+')">';
 								contenido += '<img src="assets/img/trasparente.png" class="left" >';
 								contenido += '<span>Yo Quiero!</span>';
 								contenido += '</span>';
@@ -87,11 +87,36 @@
         			function(){
         				var contenido = '<div class="centrar"><br><br>';
         				contenido += '<h3>¡Ups!, Houston tenemos un problema, al parecer tu conexión a internet está fallando.</h3><br>';
-        				contenido += '<a href="feed.html" class="btn btn-default">RECARGAR</a>';
+        				contenido += '<a href="publicaciones.html" class="btn btn-default">RECARGAR</a>';
         				contenido += '</div>';
         				$('.contenedor').html(contenido);
         			}
         		);
+	        }
+
+	        function eliminar(elemento, publicacion){
+	        	if(confirm("¿Estás seguro de eliminar esta publicación?")){
+		        	ajax(
+	        			'publicaciones/eliminar',
+	        			{
+	        				'autor': localStorage.idfb,
+	        				'publicacion': publicacion
+	        			},
+	        			function(data){
+	        				if(data.Status == 'OK'){
+	        					$(elemento).parent().parent().remove();
+	        				}
+	        			},
+	        			function(){
+	        				navigator.notification.alert(
+							    '¡Ups!, Houston tenemos un problema, al parecer tu conexión a internet está fallando.',  // message
+							    null,
+							    'Error', // title
+							    'OK' // buttonName
+							);
+	        			}
+	        		);
+	        	}
 	        }
 
 	        function yoquiero(img, publicacion){
