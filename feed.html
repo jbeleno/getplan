@@ -17,22 +17,6 @@
 			<img src ="assets/img/perfil_blanco.png" class="icono" id="perfil">
 		</div>
 		<div class="contenedor">
-			<!--<div class="post">
-				<img src="assets/img/sasha.jpg" class="img-post left">
-				<div class="titulo-post">Sasha Gray</div>
-				<div class="justificar contenido-post">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-				</div>
-				<div class="post-footer">
-					<span class="YooQuiero left"> 
-						<img src="assets/img/trasparente.png" class="left"> 
-						<span>Yo Quiero!</span>
-					</span>
-					<span class="yqcount left">25</span>
-					<span class="right fecha-post">36m</span>
-				</div>
-			</div>
-			<hr>-->
 			<div class="centrar">
 				<div class="loadBar">
 					<div id="loadingProgressG" style="display:inline-flex;">
@@ -66,6 +50,44 @@
 	        	);
 	        }
 
+	        function cargar_feed(){
+	        	ajax(
+        			'publicaciones/ver',
+        			{'usuario': localStorage.idfb},
+        			function(data){
+        				if(data.Status == 'OK'){
+        					var contenido = '';
+        					for(var i = 0; i < data.Publicaciones.length; i++){
+        						contenido += '<div class="post">';
+								contenido += '<img src="'+data.Publicaciones[i].foto+'" class="img-post left">';
+								contenido += '<div class="titulo-post">'+data.Publicaciones[i].autor+'</div>';
+								contenido += '<div class="justificar contenido-post">';
+								contenido += data.Publicaciones[i].publicacion;
+								contenido += '</div>';
+								contenido += '<div class="post-footer">';
+								contenido += '<span class="YooQuiero left">';
+								contenido += '<img src="assets/img/trasparente.png" class="left">';
+								contenido += '<span>Yo Quiero!</span>';
+								contenido += '</span>';
+								contenido += '<span class="yqcount left">'+data.Publicaciones[i].yoquieros+'</span>';
+								contenido += '<span class="right fecha-post">'+data.Publicaciones[i].fecha+'</span>';
+								contenido += '</div>';
+								contenido += '</div>';
+								contenido += '<hr>';
+        					}
+        					$('.contenedor').html(contenido);
+        				}
+        			},
+        			function(){
+        				var contenido = '<div class="centrar"><br><br>';
+        				contenido += '<h3>¡Ups!, Houston tenemos un problema, al parecer tu conexión a internet está fallando.</h3><br>';
+        				contenido += '<a href="feed.html" class="btn btn-default">RECARGAR</a>';
+        				contenido += '</div>';
+        				$('.contenedor').html(contenido);
+        			}
+        		);
+	        }
+
 	        document.addEventListener("deviceready", onDeviceReady, false);
 
 			function onDeviceReady() {
@@ -73,6 +95,8 @@
 				$("#notificaciones").click(function(){window.location.assign("publicaciones.html");});
 
 				$("#btnEscribir").click(function(){window.location.assign("publicar.html");});
+
+				cargar_feed();
 
 				if(localStorage.idfb) actualizar_sesion();
 			}
