@@ -13,7 +13,7 @@
 	<body>
 		<div class="navbar">
 			<span class="logo" id="feed">YooQuiero</span>
-			<img src ="assets/img/campana_bordes.png" class="icono" id="info">
+			<img src ="assets/img/campana_bordes.png" class="icono" id="notificaciones">
 			<img src ="assets/img/perfil_blanco.png" class="icono" id="perfil">
 		</div>
 		<div class="contenedor">
@@ -26,7 +26,7 @@
 				</div>			
 			</div>
 		</div>
-		<div class="icono-lapiz"><img src="assets/img/lapiz.png"></div>		
+		<div class="icono-lapiz" id="btnEscribir"><img src="assets/img/lapiz.png"></div>		
 		<script src="assets/js/jquery.js"></script>
 		<script  type="text/javascript" language="javascript">
 			var base_url = "http://52.27.16.14/getplan/";
@@ -39,15 +39,6 @@
 	                type: "POST",
 	                data: data
 	            }).done(done).error(error);
-	        }
-
-	        function actualizar_sesion(){
-	        	ajax(
-		        	'usuarios/actualizar',
-		        	{'uuid' : device.uuid},
-		        	function(data){},
-		        	function(error){}
-	        	);
 	        }
 
 	        function cargar_mis_post(){
@@ -75,7 +66,7 @@
 								contenido += '<img src="assets/img/trasparente.png" class="left" >';
 								contenido += '<span>Yo Quiero!</span>';
 								contenido += '</span>';
-								contenido += '<span class="yqcount left" id="cuenta'+data.Publicaciones[i].id+'">'+data.Publicaciones[i].yoquieros+'</span>';
+								contenido += '<span class="yqcount left" id="cuenta'+data.Publicaciones[i].id+'" onclick="ver_yoquieros('+data.Publicaciones[i].id+')">'+data.Publicaciones[i].yoquieros+'</span>';
 								contenido += '<span class="right fecha-post">'+data.Publicaciones[i].fecha+'</span>';
 								contenido += '</div>';
 								contenido += '</div>';
@@ -119,6 +110,11 @@
 	        	}
 	        }
 
+	        function veryoquieros(publicacion){
+	        	localStorage.post = publicacion;
+	        	window.location.assign("personas.html");
+	        }
+
 	        function yoquiero(img, publicacion){
 	        	ajax(
         			'publicaciones/yoquiero',
@@ -154,10 +150,7 @@
 
 				$("#btnEscribir").click(function(){window.location.assign("publicar.html");});
 
-				cargar_mis_post();
-
-				if(localStorage.idfb) actualizar_sesion();
-			}
+				cargar_mis_post();			}
 		</script>
 	</body>
 </html>
