@@ -16,7 +16,7 @@
 	
     <access origin="*" />
 
-	<icon src="img/logo.png" />
+	<icon src="assets/img/icono.png" />
 	
 	<preference name="permissions" value="none" />
 	
