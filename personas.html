@@ -51,7 +51,7 @@
         				if(data.Status == 'OK'){
         					var contenido = '';
         					for(var i = 0; i < data.Usuarios.length; i++){
-        						contenido += '<div class="persona">';
+        						contenido += '<div class="persona" onclick="irOtro('+data.Usuarios[i].usuario+')">';
 								contenido += '<img src="'+data.Usuarios[i].foto+'" class="img-persona left">';
 								contenido += '<div class="nombre-resaltado">'+data.Usuarios[i].nombre+'</div>';
 								contenido += '</div>';
@@ -68,6 +68,11 @@
         				$('.contenedor').html(contenido);
         			}
         		);
+	        }
+
+	        function irOtro(usuario){
+	        	localStorage.otro = usuario;
+	        	window.location.assign("otros.html");
 	        }
 
 	        document.addEventListener("deviceready", onDeviceReady, false);

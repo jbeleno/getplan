@@ -48,11 +48,11 @@
         				if(data.Status == 'OK'){
         					var contenido = '';
         					for(var i = 0; i < data.Notificaciones.length; i++){
-        						contenido += '<div class="persona">';
-								contenido += '<img src="'+data.Notificaciones[i].foto+'" class="img-persona left">';
-								contenido += '<div class="nombre-resaltado">'+data.Notificaciones[i].texto+'</div>';
+        						contenido += '<div class="notificaciones">';
+								contenido += '<img src="'+data.Notificaciones[i].foto+'" class="img-notificaciones left">';
+								contenido += '<div class="text-notificaciones">'+data.Notificaciones[i].texto+'</div>';
 								contenido += '</div>';
-								contenido += '<hr class="hr-persona">';
+								contenido += '<hr class="hr-notificaciones">';
         					}
         					$('.contenedor').html(contenido);
         				}
