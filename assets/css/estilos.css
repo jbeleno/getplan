@@ -6,6 +6,10 @@ html,body{
 	color: #424242;
 }
 
+.back{
+	height: 32px;
+}
+
 .navbar{
 	background: #0091ea;
 	color: white;
@@ -20,9 +24,18 @@ html,body{
 .logo{
 	float: left;
 	height: 32px;
-	padding: 10px;
-	margin: 10px;
+	padding: 7px;
+	margin: 7px;
 	font-size: 16px;
+}
+
+.textBack{
+	float: left;
+	padding: 10px;
+	margin: 7px;
+	font-size: 20px;
+	padding-left: 0px;
+	margin-left: 0px;
 }
 
 .icono-lapiz{
@@ -58,8 +71,8 @@ html,body{
 	float: right;
 	width: 32px;
 	height: 32px;
-	padding: 10px;
-	margin: 5px;
+	padding: 7px;
+	margin: 7px;
 }
 
 small{

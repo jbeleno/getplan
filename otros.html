@@ -12,9 +12,12 @@
 	</head>
 	<body>
 		<div class="navbar">
-			<span class="logo" id="feed">YooQuiero</span>
-			<img src ="assets/img/campana_bordes.png" class="icono" id="notificaciones">
-			<img src ="assets/img/perfil_bordes.png" class="icono" id="perfil">
+			<span class="logo" id="back">
+				<img src="assets/img/atras.png" class="back">
+			</span>
+			<span class="textBack">
+				
+			</span>
 		</div>
 		<div class="contenedor">
 			<div class="centrar">
@@ -41,21 +44,16 @@
 	            }).done(done).error(error);
 	        }
 
-	        function actualizar_sesion(){
+	        function cargar_mis_post(){
 	        	ajax(
-		        	'usuarios/actualizar',
-		        	{'uuid' : device.uuid},
-		        	function(data){},
-		        	function(error){}
-	        	);
-	        }
-
-	        function cargar_feed(){
-	        	ajax(
-        			'publicaciones/ver',
-        			{'usuario': localStorage.idfb},
+        			'publicaciones/otraspublicaciones',
+        			{
+        				'usuario': localStorage.idfb,
+        				'otro': localStorage.otro
+        			},
         			function(data){
         				if(data.Status == 'OK'){
+        					$(".textBack").html(data.Nombre);
         					var contenido = '';
         					for(var i = 0; i < data.Publicaciones.length; i++){
         						contenido += '<div class="post">';
@@ -84,7 +82,7 @@
         			function(){
         				var contenido = '<div class="centrar"><br><br>';
         				contenido += '<h3>¡Ups!, Houston tenemos un problema, al parecer tu conexión a internet está fallando.</h3><br>';
-        				contenido += '<a href="feed.html" class="btn btn-default">RECARGAR</a>';
+        				contenido += '<a href="publicaciones.html" class="btn btn-default">RECARGAR</a>';
         				contenido += '</div>';
         				$('.contenedor').html(contenido);
         			}
@@ -131,10 +129,7 @@
 
 				$("#btnEscribir").click(function(){window.location.assign("publicar.html");});
 
-				cargar_feed();
-
-				if(localStorage.idfb) actualizar_sesion();
-			}
+				cargar_mis_post();			}
 		</script>
 	</body>
 </html>

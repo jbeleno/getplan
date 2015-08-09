@@ -12,9 +12,12 @@
 	</head>
 	<body>
 		<div class="navbar">
-			<span class="logo" id="feed">YooQuiero</span>
-			<img src ="assets/img/campana_bordes.png" class="icono" id="notificaciones">
-			<img src ="assets/img/perfil_blanco.png" class="icono" id="perfil">
+			<span class="logo" id="back">
+				<img src="assets/img/atras.png" class="back">
+			</span>
+			<span class="textBack">
+				Publicar
+			</span>
 		</div>
 		<div class="contenedor">
 			<div class="centrar"><h3>Yo Quiero:</h3></div>
@@ -74,9 +77,7 @@
 			document.addEventListener("deviceready", onDeviceReady, false);
 
 			function onDeviceReady() {
-				$("#feed").click(function(){window.location.assign("feed.html");});
-				$("#perfil").click(function(){window.location.assign("publicaciones.html");});
-				$("#notificaciones").click(function(){window.location.assign("publicaciones.html");});
+				$("#back").click(function(){window.history.back();});
 
 				//$("#btnPublicar").click(publicar("#btnPublicar"));
 				$(document).on('click', '#btnPublicar', function() {
