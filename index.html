@@ -191,12 +191,12 @@
 
             function onResume() {
             	if(localStorage.detallepost) window.location.assign("publicacion.html");
+            	else if(localStorage.idfb) window.location.assign("feed.html");
 			}
 
 			function onDeviceReady() {
 				pushNotification = window.plugins.pushNotification;
 				$("#btnFB").click(login);
-				if(localStorage.idfb) window.location.assign("feed.html");
 			}
 		</script>
 	</body>
