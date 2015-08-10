@@ -99,19 +99,19 @@
 				    	if (e.foreground)
 						{
 						          // ECB message event come here when your app is in foreground(not in background)
-						          window.location.assign("publicacion.html");
+						          localStorage.detallepost = e.payload.id;
 						}
 						else
 						{  
 						  if (e.coldstart)
 						  {
 						          // ECB message event come here when you touch notification from notification tray
-						          window.location.assign("publicacion.html");
+						          localStorage.detallepost = e.payload.id;
 						  }
 						  else
 						  {
 						         // ECB message event here when your app is in background    
-						         window.location.assign("publicacion.html");
+						         localStorage.detallepost = e.payload.id;
 						  }
 						}
 				    break;
@@ -187,6 +187,11 @@
 	        }
 
             document.addEventListener("deviceready", onDeviceReady, false);
+            document.addEventListener("resume", onResume, false);
+
+            function onResume() {
+            	if(localStorage.detallepost) window.location.assign("publicacion.html");
+			}
 
 			function onDeviceReady() {
 				pushNotification = window.plugins.pushNotification;
