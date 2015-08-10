@@ -28,8 +28,7 @@
 					</div>
 				</div>			
 			</div>
-		</div>
-		<div class="icono-lapiz" id="btnEscribir"><img src="assets/img/lapiz.png"></div>		
+		</div>	
 		<script src="assets/js/jquery.js"></script>
 		<script  type="text/javascript" language="javascript">
 			var base_url = "http://52.27.16.14/getplan/";
@@ -123,13 +122,10 @@
 	        document.addEventListener("deviceready", onDeviceReady, false);
 
 			function onDeviceReady() {
-				$("#feed").click(function(){window.location.assign("feed.html");});
-				$("#perfil").click(function(){window.location.assign("publicaciones.html");});
-				$("#notificaciones").click(function(){window.location.assign("publicaciones.html");});
+				$("#back").click(function(){window.history.back();});
 
-				$("#btnEscribir").click(function(){window.location.assign("publicar.html");});
-
-				cargar_mis_post();			}
+				cargar_mis_post();			
+			}
 		</script>
 	</body>
 </html>

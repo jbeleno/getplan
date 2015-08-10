@@ -60,7 +60,7 @@
         					for(var i = 0; i < data.Publicaciones.length; i++){
         						contenido += '<div class="post">';
 								contenido += '<img src="'+data.Publicaciones[i].foto+'" class="img-post left">';
-								contenido += '<div class="titulo-post" onclick="irOtro('+data.Publicaciones[i].idAutor+')">'+data.Publicaciones[i].autor+'</div>';
+								contenido += '<div class="titulo-post" onclick="irOtro(\''+data.Publicaciones[i].idAutor+'\')">'+data.Publicaciones[i].autor+'</div>';
 								contenido += '<div class="justificar contenido-post">';
 								contenido += data.Publicaciones[i].publicacion;
 								contenido += '</div>';
