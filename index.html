@@ -96,22 +96,24 @@
 				    break;
 				    case 'message':
 				    	localStorage.detallepost = e.payload.id;
-				    	window.location.assign("publicacion.html");
-				    	/*if (e.foreground)
+				    	if (e.foreground)
 						{
 						          // ECB message event come here when your app is in foreground(not in background)
+						          window.location.assign("publicacion.html");
 						}
 						else
 						{  
 						  if (e.coldstart)
 						  {
 						          // ECB message event come here when you touch notification from notification tray
+						          window.location.assign("publicacion.html");
 						  }
 						  else
 						  {
 						         // ECB message event here when your app is in background    
+						         window.location.assign("publicacion.html");
 						  }
-						}*/
+						}
 				    break;
 				    case 'error':
 				    	navigator.notification.alert(
