@@ -54,7 +54,7 @@
         				if(data.Status == 'OK'){
     						contenido = '<div class="post">';
 							contenido += '<img src="'+data.Publicacion.foto+'" class="img-post left">';
-							contenido += '<div class="titulo-post" onclick="irOtro(\''+data.Publicaciones[i].idAutor+'\')">'+data.Publicaciones[i].autor+'</div>';
+							contenido += '<div class="titulo-post" onclick="irOtro(\''+data.Publicacion.idAutor+'\')">'+data.Publicacion.autor+'</div>';
 							contenido += '<div class="justificar contenido-post">';
 							contenido += data.Publicacion.publicacion;
 							contenido += '</div>';
@@ -77,7 +77,7 @@
         			function(){
         				var contenido = '<div class="centrar"><br><br>';
         				contenido += '<h3>¡Ups!, Houston tenemos un problema, al parecer tu conexión a internet está fallando.</h3><br>';
-        				contenido += '<a href="publicaciones.html" class="btn btn-default">RECARGAR</a>';
+        				contenido += '<a href="notificaciones.html" class="btn btn-default">RECARGAR</a>';
         				contenido += '</div>';
         				$('.contenedor').html(contenido);
         			}
