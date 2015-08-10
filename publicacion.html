@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>YooQuiero</title>
+		<link href="assets/css/estilos.css" rel="stylesheet">
+		<meta name="viewport" id="viewport"
+	    content="width=device-width, height=device-height,
+	    initial-scale=1.0, maximum-scale=1.0,
+	    user-scalable=no" />
+		<script src="phonegap.js"></script>
+	</head>
+	<body>
+		<div class="navbar">
+			<span class="logo" id="back">
+				<img src="assets/img/atras.png" class="back">
+			</span>
+			<span class="textBack">
+				Publicación
+			</span>
+		</div>
+		<div class="contenedor">
+			<div class="centrar">
+				<div class="loadBar">
+					<div id="loadingProgressG" style="display:inline-flex;">
+						<div id="loadingProgressG_1" class="loadingProgressG">
+						</div>
+					</div>
+				</div>			
+			</div>
+		</div>	
+		<script src="assets/js/jquery.js"></script>
+		<script  type="text/javascript" language="javascript">
+			var base_url = "http://52.27.16.14/getplan/";
+
+			function ajax(url,data,done,error){
+	            $.ajax({
+	                url: base_url+url,
+	                context : document.body,
+	                dataType: "json",
+	                type: "POST",
+	                data: data
+	            }).done(done).error(error);
+	        }
+
+	        function cargar_post(){
+	        	ajax(
+        			'publicaciones/publicacion',
+        			{
+        				'usuario': localStorage.idfb,
+        				'publicacion': localStorage.detallepost
+        			},
+        			function(data){
+        				if(data.Status == 'OK'){
+    						contenido = '<div class="post">';
+							contenido += '<img src="'+data.Publicacion.foto+'" class="img-post left">';
+							contenido += '<div class="titulo-post" onclick="irOtro(\''+data.Publicaciones[i].idAutor+'\')">'+data.Publicaciones[i].autor+'</div>';
+							contenido += '<div class="justificar contenido-post">';
+							contenido += data.Publicacion.publicacion;
+							contenido += '</div>';
+							contenido += '<div class="post-footer">';
+							if(data.Publicacion.yoquiero == "si")
+								contenido += '<span class="YooQuiero left activo" onclick="yoquiero(this,'+data.Publicacion.id+')">';
+							else
+								contenido += '<span class="YooQuiero left" onclick="yoquiero(this,'+data.Publicacion.id+')">';
+							contenido += '<img src="assets/img/trasparente.png" class="left" >';
+							contenido += '<span>Yo Quiero!</span>';
+							contenido += '</span>';
+							contenido += '<span class="yqcount left" id="cuenta'+data.Publicacion.id+'" onclick="veryoquieros('+data.Publicacion.id+')">'+data.Publicacion.yoquieros+'</span>';
+							contenido += '<span class="right fecha-post">'+data.Publicacion.fecha+'</span>';
+							contenido += '</div>';
+							contenido += '</div>';
+							contenido += '<hr>';
+        					$('.contenedor').html(contenido);
+        				}
+        			},
+        			function(){
+        				var contenido = '<div class="centrar"><br><br>';
+        				contenido += '<h3>¡Ups!, Houston tenemos un problema, al parecer tu conexión a internet está fallando.</h3><br>';
+        				contenido += '<a href="publicaciones.html" class="btn btn-default">RECARGAR</a>';
+        				contenido += '</div>';
+        				$('.contenedor').html(contenido);
+        			}
+        		);
+	        }
+
+	        function irOtro(usuario){
+	        	localStorage.otro = usuario;
+	        	window.location.assign("otros.html");
+	        }
+
+	        function veryoquieros(publicacion){
+	        	localStorage.post = publicacion;
+	        	window.location.assign("personas.html");
+	        }
+
+	        function yoquiero(img, publicacion){
+	        	ajax(
+        			'publicaciones/yoquiero',
+        			{
+        				'usuario': localStorage.idfb,
+        				'publicacion': publicacion
+        			},
+        			function(data){
+        				if(data.Status == 'OK'){
+        					$(img).addClass("activo");
+        				}else{
+        					$(img).removeClass("activo");
+        				}
+        				$("#cuenta"+publicacion).html(data.yoquieros);
+        			},
+        			function(){
+        				navigator.notification.alert(
+						    '¡Ups!, Houston tenemos un problema, al parecer tu conexión a internet está fallando.',  // message
+						    null,
+						    'Error', // title
+						    'OK' // buttonName
+						);
+        			}
+        		);
+	        }
+
+	        document.addEventListener("deviceready", onDeviceReady, false);
+
+			function onDeviceReady() {
+				$("#back").click(function(){window.history.back();});
+
+				cargar_post();			
+			}
+		</script>
+	</body>
+</html>

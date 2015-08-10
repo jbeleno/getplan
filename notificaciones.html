@@ -40,6 +40,11 @@
 	            }).done(done).error(error);
 	        }
 
+	        function abrirPublicacion(publicacion){
+	        	localStorage.detallepost = publicacion;
+	        	window.location.assign("publicacion.html");
+	        }
+
 	        function cargar_mis_notificaciones(){
 	        	ajax(
         			'notificaciones/ver',
@@ -48,7 +53,7 @@
         				if(data.Status == 'OK'){
         					var contenido = '';
         					for(var i = 0; i < data.Notificaciones.length; i++){
-        						contenido += '<div class="notificaciones">';
+        						contenido += '<div class="notificaciones" onclick="abrirPublicacion(\''+data.Notificaciones[i].idPublicacion+'\')">';
 								contenido += '<img src="'+data.Notificaciones[i].foto+'" class="img-notificaciones left">';
 								contenido += '<div class="text-notificaciones">'+data.Notificaciones[i].texto+'</div>';
 								contenido += '</div>';
