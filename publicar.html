@@ -24,6 +24,7 @@
 			<textarea rows="6" placeholder="ir a rumbear cuadra picha está noche, nos encontramos en Gisell Barra Dance a las 10:00 p.m." id="publicacion"></textarea>
 			<br><br>
 			<div class="centrar">
+				<h4><input type="checkbox" id="publicarFB" class="checkbox" checked="true"> Compartir en facebook</h4>
 				<button class="btn btn-default" id="btnPublicar">PUBLICAR</button>
 			</div>
 		</div>
@@ -51,7 +52,10 @@
         			},
         			function(data){
         				if(data.Status == 'OK'){
-							window.location.assign("publicaciones.html");
+        					if($("#publicarFB").is(":checked"))
+        						share();
+        					else
+								window.location.assign("publicaciones.html");
         				}else{
         					navigator.notification.alert(
 							    data.MSG,  // message
@@ -73,6 +77,25 @@
         			}
         		);
 	        }
+
+	        function share() {
+		        openFB.api({
+		            method: 'POST',
+		            path: '/me/feed',
+		            params: {
+		                message: $('#publicacion').val(),
+		                link: 'http://www.yooquiero.com/',
+		                picture: 'https://raw.githubusercontent.com/jbeleno/getplan/master/assets/img/icono.png',
+		                name: 'YooQuiero'
+		            },
+		            success: function() {
+		            	window.location.assign("publicaciones.html");
+		            },
+		            error: function(){
+		            	window.location.assign("publicaciones.html");
+		            }
+		        });
+		    }
 
 			document.addEventListener("deviceready", onDeviceReady, false);
 

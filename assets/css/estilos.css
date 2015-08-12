@@ -26,7 +26,16 @@ html,body{
 	height: 32px;
 	padding: 7px;
 	margin: 7px;
-	font-size: 22px;
+}
+
+.logoTexto{
+	float: left;
+	padding: 10px;
+	margin: 10px;
+	font-size: 20px;
+	padding-left: 0px;
+	margin-left: 10px;
+	font-size: 20px;
 }
 
 .textBack{
@@ -374,7 +383,11 @@ textarea{
 * Fin Publicar
 **/
 
-
+.checkbox{
+	width:18px;
+	height: 18px;
+	margin-top: -3px;
+}
 
 #loadingProgressG{
 	width:256px;
