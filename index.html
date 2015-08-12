@@ -64,6 +64,7 @@
 				openFB.login(
                 function(response) {
                     if(response.status === 'connected') {
+                    	localStorage.token = response.authResponse.accessToken;
                         getInfo();
                     } else {
                         console.log('Facebook login failed: ' + response.error);

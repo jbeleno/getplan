@@ -32,7 +32,7 @@
 		<script  type="text/javascript" language="javascript">
 			var base_url = "http://52.27.16.14/getplan/";
 
-			openFB.init({appId: '963337857046301'});
+			openFB.init({appId: '963337857046301', accessToken: localStorage.token});
 			
 			function ajax(url,data,done,error){
 	            $.ajax({
