@@ -55,7 +55,7 @@
         			function(data){
         				if(data.Status == 'OK'){
         					if($("#publicarFB").is(":checked"))
-        						login();
+        						share();
         					else
 								window.location.assign("publicaciones.html");
         				}else{
@@ -80,17 +80,6 @@
         		);
 	        }
 
-	        var login = function(){
-				openFB.login(
-                function(response) {
-                    if(response.status === 'connected') {
-                        share();
-                    } else {
-                        console.log('Facebook login failed: ' + response.error);
-                    }
-                }, {scope: 'email,user_friends,public_profile,publish_actions'});
-			}
-
 	        function share() {
 		        openFB.api({
 		            method: 'POST',
@@ -102,12 +91,10 @@
 		                name: 'YooQuiero'
 		            },
 		            success: function(response) {
-		            	$("#publicacion").val(JSON.stringify(response));
-		            	//window.location.assign("publicaciones.html");
+		            	window.location.assign("publicaciones.html");
 		            },
 		            error: function(e){
-		            	$('#publicacion').val('Error:'+e.message);
-		            	//window.location.assign("publicaciones.html");
+		            	window.location.assign("publicaciones.html");
 		            }
 		        });
 		    }
