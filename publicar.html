@@ -21,16 +21,18 @@
 		</div>
 		<div class="contenedor">
 			<div class="centrar"><h3>Yo Quiero:</h3></div>
-			<textarea rows="6" placeholder="ir a rumbear cuadra picha está noche, nos encontramos en Gisell Barra Dance a las 10:00 p.m." id="publicacion"></textarea>
-			<br><br>
+			<textarea rows="6" placeholder="ir a rumbear cuadra picha está noche, nos encontramos en Gisell Barra Dance a las 10:00 p.m." id="publicacion"></textarea><br>			
 			<div class="centrar">
 				<h4><input type="checkbox" id="publicarFB" class="checkbox" checked="true"> Compartir en facebook</h4>
 				<button class="btn btn-default" id="btnPublicar">PUBLICAR</button>
 			</div>
 		</div>
 		<script src="assets/js/jquery.js"></script>
+		<script src="assets/js/openfb.js"></script>
 		<script  type="text/javascript" language="javascript">
 			var base_url = "http://52.27.16.14/getplan/";
+
+			openFB.init({appId: '963337857046301'});
 			
 			function ajax(url,data,done,error){
 	            $.ajax({
@@ -83,7 +85,7 @@
 		            method: 'POST',
 		            path: '/me/feed',
 		            params: {
-		                message: $('#publicacion').val(),
+		                description: $('#publicacion').val(),
 		                link: 'http://www.yooquiero.com/',
 		                picture: 'https://raw.githubusercontent.com/jbeleno/getplan/master/assets/img/icono.png',
 		                name: 'YooQuiero'
